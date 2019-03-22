@@ -18,11 +18,13 @@ def get_content(html):
 
 # 总共有几种类型的文章
 pageType = ["hot", "textnew", "text", "history"]
+filePath = "C:\\Users\\zhucan\\Desktop\\笑话.txt"
+file = open(filePath, "w", encoding="utf-8")
 
 
 def get_page_content(page_type, _page):
     # 这个是每行的字数
-    content_size = 50
+    content_size = 20
     c_url = "https://www.qiushibaike.com/"+page_type+"/page/" + str(_page) + "/"
     c_html = get_html(c_url)
     c_content = get_content(c_html)
@@ -34,8 +36,10 @@ def get_page_content(page_type, _page):
         for y in range(length):
             if y % content_size == 0 and y > 1:
                 print(text[y - content_size: y])
+                file.write(text[y - content_size: y])
             if y == length - 1:
                 print(text[(length - length % content_size): length])
+                file.write(text[(length - length % content_size): length])
     if "下一页" in c_html:
         # 如果有下一页,就递归获取下一页
         _page += 1
